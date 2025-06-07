@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Form validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 350px;
+      margin: 150px auto;
+      background-color: rgb(196, 222, 246);
+
+    }
+
+    h2 {
+
+      margin-left: 20px;
+    }
+
+   
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin-top: 10px;
+     
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    button:disabled {
+      background-color: rgb(103, 247, 103);
+      cursor: not-allowed;
+      color: black;
+    }
+
+    button {
+      margin-top: 40px;
+      padding: 10px;
+      width: 50%;
+      font-size: 18px;
+      margin-left: 80px;
+      border-radius: 20px;
+      border: solid black 1px;
+      background-color: rgb(165, 244, 181);
+      
+    }
+  
+  </style>
+</head>
+
+<body>
+
+  <h2>✅ Registration Form</h2>
+
+  <form id="registrationForm" >
+    <label>Name:</label>
+    <input type="text" id="name" required>
+    <div class="error" id="nameError"></div>
+
+    <label>Email:</label>
+    <input type="email" id="email" required>
+    <div class="error" id="emailError"></div>
+
+    <label>Password:</label>
+    <input type="password" id="password" required>
+    <div class="error" id="passwordError"></div>
+
+    <button type="submit" id="submitBtn">Submit</button>
+  </form>
+
+  <script>
+    var nameInput = document.getElementById('name');
+    var emailInput = document.getElementById('email');
+    var passwordInput = document.getElementById('password');
+    var submitBtn = document.getElementById('submitBtn');
+
+    var nameError = document.getElementById('nameError');
+    var emailError = document.getElementById('emailError');
+    var passwordError = document.getElementById('passwordError');
+
+    function validateForm() {
+      let valid = true;
+
+      // Name 
+      var nameRegex = /^[A-Za-z\s]+$/;
+      if (!nameRegex.test(nameInput.value)) {
+        nameError.textContent = "Name is required and must contain only letters and spaces";
+        valid = false;
+      } else {
+        nameError.textContent = "";
+      }
+
+      //email
+      var emailRegex = /^[a-zA-Z0-9]+@gmail\.com$/;
+      if (!emailRegex.test(emailInput.value)) {
+        emailError.textContent = "Enter a valid email (e.g., example@gmail.com)";
+        valid = false;
+      } else {
+        emailError.textContent = "";
+      }
+
+      //password
+      var passwordRegex = /^.{6}$/;
+      if (!passwordRegex.test(passwordInput.value)) {
+        passwordError.textContent = "Password must be at 6 characters only";
+        valid = false;
+      } else {
+        passwordError.textContent = "";
+      }
+
+      submitBtn.disabled = !valid;
+    }
+
+    nameInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+
+    document.getElementById('registrationForm').addEventListener('submit', function () {
+      event.preventDefault();
+      alert("Registration successful!");
+    });
+  </script>
+
+</body>
+
+</html>
